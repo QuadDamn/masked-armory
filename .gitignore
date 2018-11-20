@@ -1,0 +1,10 @@
+.idea
+client/node_modules/
+node_modules
+.env
+config/default.json
+config/test.json
+client/node_modules/
+client/npm-debug.log
+client/yarn-error.log
+client/dist/

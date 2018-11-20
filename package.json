@@ -1,0 +1,32 @@
+{
+  "name": "masked-armory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "mocha --timeout 30000"
+  },
+  "author": "Shane Jeffery",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "blizzard.js": "^2.3.2",
+    "body-parser": "^1.18.3",
+    "config": "^2.0.1",
+    "cron": "^1.5.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-mongo-db": "git+https://github.com/1RM/express-mongo-db.git",
+    "mongodb": "^3.1.10"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "dookie": "^0.2.1",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.6",
+    "sinon": "^7.1.1",
+    "supertest": "^3.3.0"
+  }
+}
