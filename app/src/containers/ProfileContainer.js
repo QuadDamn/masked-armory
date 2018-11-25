@@ -1,13 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import {getProfile} from "../utils/api";
-import {Route} from 'react-router-dom';
+import MainProfileView from '../components/MainProfileView';
 
 class ProfileContainer extends Component {
 
     state = {
         profileId: '',
         profileData: {},
-        loading: false
+        loading: false,
+        currentView: 'main',
+        componentToRender: <div />
     };
 
     async componentDidMount() {
@@ -19,14 +21,13 @@ class ProfileContainer extends Component {
 
         getProfile(profileId).then((data) => {
 
-            console.log(data);
-
-
             this.setState({
                 profileId: profileId,
                 profileData: data,
                 loading: false
-            })
+            });
+
+            this.getComponentToRender();
         })
     }
 
@@ -38,14 +39,52 @@ class ProfileContainer extends Component {
         document.getElementById("mynav").classList.remove('mynav2');
     }
 
+    changeView(selectedView) {
+        this.setState({
+            currentView: selectedView
+        })
+    }
+
+    getComponentToRender() {
+        const {currentView, profileData, profileId} = this.state;
+
+        let componentToRender = '';
+
+        switch (currentView) {
+            case 'main':
+                componentToRender = <MainProfileView profileData={profileData} profileId={profileId} />;
+                break;
+            // case 'titles':
+            //     componentToRender = <TitleProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+            // case 'mounts':
+            //     componentToRender = <MountProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+            // case 'pets':
+            //     componentToRender = <PetProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+            // case 'reputations':
+            //     componentToRender = <ReputationProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+            // case 'achievements':
+            //     componentToRender = <AchievementProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+            // case 'share':
+            //     componentToRender = <ShareProfileView profileData={profileData} profileId={profileId} />;
+            //     break;
+        }
+
+        this.setState({
+            componentToRender
+        });
+    }
 
     render() {
-        const {profileId, profileData, loading} = this.state;
+        const {profileId, profileData, loading, componentToRender} = this.state;
 
-        // if (loading === true || !profileData) {
-        //     return <div/>;
-        // }
-
+        if (loading === true || !profileData) {
+            return <div/>;
+        }
 
         return (
             <Fragment>
@@ -73,9 +112,9 @@ class ProfileContainer extends Component {
                                 <li><a href="achievments.html">
                                     <div><img src="/images/achievements.svg" alt=""/></div>
                                     ACHIEVEMENTS</a></li>
-                                <li><a href="progress.html">
-                                    <div><img src="/images/progress.svg" alt=""/></div>
-                                    PROGRESS</a></li>
+                                {/*<li><a href="progress.html">*/}
+                                    {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
+                                    {/*PROGRESS</a></li>*/}
                                 <li className="no-border"><a href="share.html">
                                     <div><img src="/images/share.svg" alt=""/></div>
                                     SHARE</a></li>
@@ -92,13 +131,13 @@ class ProfileContainer extends Component {
                     <div id="mynav" className="friendlymenu d-lg-none">
                         <nav className="nav-menu">
                             <div className="side-logo1"><img src="/images/logo.png" alt=""/></div>
-                            <a onClick={this.closeNav} className="closebtn">
+                            <button onClick={this.closeNav} className="closebtn">
                                 <img src="/images/close.svg" alt="close"/>
-                            </a>
+                            </button>
                             <div className="hamburger">
-                                <a onClick={this.openNav} style={{cursor: "pointer"}}>
+                                <button onClick={this.openNav} style={{cursor: "pointer"}}>
                                     <img src="/images/menu.svg" alt="menu"/>
-                                </a>
+                                </button>
                             </div>
                             <div className="navigation">
                                 <ul>
@@ -121,21 +160,21 @@ class ProfileContainer extends Component {
                                     <li><a href="achievments.html">
                                         <div><img src="/images/achievements.svg" alt=""/></div>
                                         ACHIEVEMENTS</a></li>
-                                    <li><a href="progress.html">
-                                        <div><img src="/images/progress.svg" alt=""/></div>
-                                        PROGRESS</a></li>
+                                    {/*<li><a href="progress.html">*/}
+                                        {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
+                                        {/*PROGRESS</a></li>*/}
                                     <li className="no-border"><a href="share.html">
                                         <div><img src="/images/share.svg" alt=""/></div>
                                         SHARE</a></li>
                                     <li className="head">SIDE NAVIGATION</li>
-                                    <li className="ad"><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a>
-                                    </li>
-                                    <li className="ad"><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site
-                                        Feeedback</a>
-                                    </li>
-                                    <li className="ad no-border"><a href="#"><img src="/images/about.svg" alt=""/>About
-                                        Masked
-                                        Armory</a></li>
+                                    {/*<li className="ad"><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="ad"><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site*/}
+                                        {/*Feeedback</a>*/}
+                                    {/*</li>*/}
+                                    {/*<li className="ad no-border"><a href="#"><img src="/images/about.svg" alt=""/>About*/}
+                                        {/*Masked*/}
+                                        {/*Armory</a></li>*/}
                                     <li className="head">ADVERTISEMENTS</li>
                                     <li className="ad"><a href="https://www.khaccounts.net/">BUY SELL WOW ACCOUNTS</a>
                                     </li>
@@ -150,11 +189,13 @@ class ProfileContainer extends Component {
                     <div className="main">
                         <div className="nav-bar d-none d-lg-block">
                             <ul>
-                                <li><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a></li>
-                                <li><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site Feeedback</a></li>
-                                <li><a href="#"><img src="/images/about.svg" alt=""/>About Masked Armory</a></li>
+                                {/*<li><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a></li>*/}
+                                {/*<li><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site Feeedback</a></li>*/}
+                                {/*<li><a href="#"><img src="/images/about.svg" alt=""/>About Masked Armory</a></li>*/}
                             </ul>
                         </div>
+
+                        {componentToRender}
                     </div>
                 </div>
             </Fragment>);

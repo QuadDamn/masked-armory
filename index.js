@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'test' || config.get("environment") === 'developmen
     const expressMongoDb = require('express-mongo-db');
 
     app.use(cors());
-
     app.use(expressMongoDb(config.get('db_connection_string'), config.get('db_name')));
 
     app.use(bodyParser.urlencoded({ extended: false }));
