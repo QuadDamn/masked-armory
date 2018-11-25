@@ -2,12 +2,22 @@ import axios from 'axios';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export function getProfile(profileId) {
-
+export async function getProfile(profileId) {
+    const response = await axios.get(`${apiUrl}/profile/${profileId}`);
+    return response.data;
 }
 
-export function createProfile(data) {
-
+export async function createProfile(data) {
+    axios.post(`${apiUrl}/profile`, data).then((response) => {
+        let data = response.data;
+        return data.profileId;
+    }).catch((err) => {
+        console.log(err);
+        return null;
+        // this.armoryError = 'armoryCreateFailed';
+        // createProfileButton.prop("disabled", false);
+        // createProfileButton.text("Create Armory Profile");
+    });
 }
 
 export async function getUsServerList() {

@@ -25,10 +25,7 @@ const totalAchievementCounts = {
 /**
  * Handles the creation of the actual armory by pulling information from Blizzard's API for WoW.
  */
-function createArmory(req, res) {
-
-    console.log('hello world');
-
+function createProfile(req, res) {
     const realm = req.body.serverName.replace(/\\/g, '');
     const name = req.body.characterName;
     const origin = req.body.region;
@@ -38,8 +35,6 @@ function createArmory(req, res) {
     blizzard.wow.character(keys, {realm, name, origin, locale})
         .then(async (response) => {
             const armoryData = response.data;
-
-            console.log(armoryData);
 
             // ****** START :: Handling Raid Zone Progression for BfA Raid Content ********
 
@@ -131,9 +126,9 @@ function createArmory(req, res) {
             }
         })
         .catch((err) => {
-            console.log('boo');
             console.log(err);
+            return res.status(500).send({ status: 'error', message: err })
         });
 }
 
-module.exports = createArmory;
+module.exports = createProfile;

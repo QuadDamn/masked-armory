@@ -4,7 +4,7 @@ require('dotenv').config();
 /**
  * Looks through Mongo for a ID match for the passed armory ID.
  */
-async function getArmory(req, res) {
+async function getProfile(req, res) {
     const profileId = req.params.id;
     const collection = req.db.collection('armories');
 
@@ -35,4 +35,4 @@ function isEmpty(obj) {
     return true;
 }
 
-module.exports = getArmory;
+module.exports = getProfile;
