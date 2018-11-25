@@ -1,5 +1,3 @@
-/* Scss Document */
-/* fonts */
 @font-face {
     font-family: Ubuntu;
     src: url(../fonts/Ubuntu-B.ttf) format("truetype"), url(../fonts/Ubuntu-Bold.eot) format("embedded-opentype"), url(../fonts/Ubuntu-Bold.woff) format("woff"), url(../fonts/Ubuntu-Bold.woff2) format("woff2"), url(../fonts/Ubuntu-Bold.svg) format("svg");
@@ -10,8 +8,7 @@
     src: url(../fonts/Ubuntu-R.ttf) format("truetype"), url(../fonts/Ubuntu.eot) format("embedded-opentype"), url(../fonts/Ubuntu.woff) format("woff"), url(../fonts/Ubuntu.woff2) format("woff2"), url(../fonts/Ubuntu.svg) format("svg");
     font-weight: 500;
 }
-/* variables */
-/* keys */
+
 .cont-share .share, .cont-progress .prog .vs [class*=col-] .rating, .cont-progress .prog .prog-image, .cont-achievment .row [class*=col-] .legacy, .cont-pets .pets .pet .pet-image, .cont-mounts .mounts .mount .mount-image, .cont-titles .titles .title .title-rect, .cont-main .content-info-bg, .cont-main .content-info .summary, .cont-main .content-info .points, .cont-main .content-info .levels, .cont-main .content-info .professions, .home .region .eu, .home .region .us {
     background-position: center;
     background-repeat: no-repeat;

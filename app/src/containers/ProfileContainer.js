@@ -18,6 +18,10 @@ class ProfileContainer extends Component {
         const profileId = this.props.match.params.id;
 
         getProfile(profileId).then((data) => {
+
+            console.log(data);
+
+
             this.setState({
                 profileId: profileId,
                 profileData: data,
@@ -76,9 +80,12 @@ class ProfileContainer extends Component {
                                     <div><img src="/images/share.svg" alt=""/></div>
                                     SHARE</a></li>
                                 <li className="head">ADVERTISEMENTS</li>
-                                <li className="ad"><a href="#">BUY SELL WOW ACCOUNTS</a></li>
-                                <li className="ad"><a href="#">BUY HIGH END WOW ACCOUNTS</a></li>
-                                <li className="ad"><a href="#">SELL ELITE WOW ACCOUNTS</a></li>
+                                <li className="ad"><a href="https://www.khaccounts.net/">BUY SELL WOW ACCOUNTS</a>
+                                </li>
+                                <li className="ad"><a href="https://www.khaccounts.net/buy-wow-accounts">BUY HIGH
+                                    END WOW ACCOUNTS</a></li>
+                                <li className="ad"><a href="https://www.khaccounts.net/sell-wow-accounts">SELL ELITE
+                                    WOW ACCOUNTS</a></li>
                             </ul>
                         </div>
                     </nav>

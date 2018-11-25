@@ -6,14 +6,11 @@ const config = require('config');
 if (process.env.NODE_ENV === 'test' || config.get("environment") === 'development' || !cluster.isMaster) {
     const express = require('express');
     const bodyParser = require('body-parser');
+    const cors = require('cors');
     const app = express();
     const expressMongoDb = require('express-mongo-db');
 
-    app.use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-    });
+    app.use(cors());
 
     app.use(expressMongoDb(config.get('db_connection_string'), config.get('db_name')));
 
