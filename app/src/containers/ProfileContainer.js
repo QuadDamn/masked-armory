@@ -20,10 +20,9 @@ class ProfileContainer extends Component {
         const profileId = this.props.match.params.id;
 
         getProfile(profileId).then((data) => {
-
             this.setState({
                 profileId: profileId,
-                profileData: data,
+                profileData: data.data.profile,
                 loading: false
             });
 
@@ -42,7 +41,9 @@ class ProfileContainer extends Component {
     changeView(selectedView) {
         this.setState({
             currentView: selectedView
-        })
+        });
+
+        this.getComponentToRender();
     }
 
     getComponentToRender() {
@@ -131,13 +132,13 @@ class ProfileContainer extends Component {
                     <div id="mynav" className="friendlymenu d-lg-none">
                         <nav className="nav-menu">
                             <div className="side-logo1"><img src="/images/logo.png" alt=""/></div>
-                            <button onClick={this.closeNav} className="closebtn">
+                            <a onClick={this.closeNav} className="closebtn">
                                 <img src="/images/close.svg" alt="close"/>
-                            </button>
+                            </a>
                             <div className="hamburger">
-                                <button onClick={this.openNav} style={{cursor: "pointer"}}>
+                                <a onClick={this.openNav} style={{cursor: "pointer"}}>
                                     <img src="/images/menu.svg" alt="menu"/>
-                                </button>
+                                </a>
                             </div>
                             <div className="navigation">
                                 <ul>
