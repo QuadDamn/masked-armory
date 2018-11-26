@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {getProfile} from "../utils/api";
 import MainProfileView from '../components/MainProfileView';
+import TitleProfileView from '../components/TitleProfileView';
 
 class ProfileContainer extends Component {
 
@@ -26,7 +27,7 @@ class ProfileContainer extends Component {
                 loading: false
             });
 
-            this.getComponentToRender();
+            this.getComponentToRender('main');
         })
     }
 
@@ -38,26 +39,26 @@ class ProfileContainer extends Component {
         document.getElementById("mynav").classList.remove('mynav2');
     }
 
-    changeView(selectedView) {
+    changeView = (selectedView) => {
         this.setState({
             currentView: selectedView
         });
 
-        this.getComponentToRender();
-    }
+        this.getComponentToRender(selectedView);
+    };
 
-    getComponentToRender() {
-        const {currentView, profileData, profileId} = this.state;
+    getComponentToRender(selectedView) {
+        const {profileData, profileId} = this.state;
 
         let componentToRender = '';
 
-        switch (currentView) {
+        switch (selectedView) {
             case 'main':
                 componentToRender = <MainProfileView profileData={profileData} profileId={profileId} />;
                 break;
-            // case 'titles':
-            //     componentToRender = <TitleProfileView profileData={profileData} profileId={profileId} />;
-            //     break;
+            case 'titles':
+                componentToRender = <TitleProfileView profileData={profileData} profileId={profileId} />;
+                break;
             // case 'mounts':
             //     componentToRender = <MountProfileView profileData={profileData} profileId={profileId} />;
             //     break;
@@ -95,10 +96,10 @@ class ProfileContainer extends Component {
                         <div className="navigation">
                             <ul>
                                 <li className="head">ARMORY NAVIGATION</li>
-                                <li className="active"><a href="main.html">
+                                <li className="active"><a onClick={() => this.changeView('main')}>
                                     <div><img src="/images/main.svg" alt=""/></div>
                                     MAIN</a></li>
-                                <li><a href="titles.html">
+                                <li><a onClick={() => this.changeView('titles')}>
                                     <div><img src="/images/titles.svg" alt=""/></div>
                                     TITLES</a></li>
                                 <li><a href="mounts.html">
@@ -143,10 +144,10 @@ class ProfileContainer extends Component {
                             <div className="navigation">
                                 <ul>
                                     <li className="head">ARMORY NAVIGATION</li>
-                                    <li className="active"><a href="main.html">
+                                    <li className="active"><a onClick={() => this.changeView('main')}>
                                         <div><img src="/images/main.svg" alt=""/></div>
                                         MAIN</a></li>
-                                    <li><a href="titles.html">
+                                    <li><a onClick={() => this.changeView('titles')}>
                                         <div><img src="/images/titles.svg" alt=""/></div>
                                         TITLES</a></li>
                                     <li><a href="mounts.html">
