@@ -3,6 +3,28 @@ import React, {Component, Fragment} from 'react';
 
 class MainProfileView extends Component {
 
+    getItemLink(item) {
+        let azeritePowers = '';
+        let bonusLists = '';
+        let ilvl = '&ilvl=' + item.itemLevel;
+
+        console.log(item);
+
+        if (item.azeriteEmpoweredItem) {
+            azeritePowers = item.azeriteEmpoweredItem.azeritePowers.map((azeritePower) => {
+               return azeritePower.id;
+            });
+
+            azeritePowers = '&azerite-powers=' + azeritePowers.join(":");
+        }
+
+        if (item.bonusLists) {
+            bonusLists = '&bonus=' + item.bonusLists.join(":")
+        }
+
+        return `https://www.wowhead.com/item=${item.id}${bonusLists}${azeritePowers}${ilvl}`;
+    }
+
     getItemImage(item) {
         return `https://wow.zamimg.com/images/wow/icons/large/${item.icon}.jpg`
     }
@@ -59,7 +81,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['head']) ? profileData.items['head'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['head']) ? this.getItemLink(profileData.items['head']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['head']) ? this.getItemImage(profileData.items['head']) : '/images/emptyslots/head.gif'})`}}/>
                                     </a></div>
@@ -72,20 +94,20 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['neck']) ? profileData.items['neck'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['neck']) ? this.getItemLink(profileData.items['neck']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['neck']) ? this.getItemImage(profileData.items['neck']) : '/images/emptyslots/neck.gif'})`}}/>
                                     </a></div>
                                 <div className="item">
                                     <div className="item-info d-none d-md-block">
                                         <div className="item-name">
-                                            <h3>{(profileData.items['head']) ? profileData.items['shoulder'].name : ''}</h3>
+                                            <h3>{(profileData.items['shoulder']) ? profileData.items['shoulder'].name : ''}</h3>
                                         </div>
                                         <div className="item-level">
                                             <span>{(profileData.items['shoulder']) ? profileData.items['shoulder'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['shoulder']) ? this.getItemLink(profileData.items['shoulder']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['shoulder']) ? this.getItemImage(profileData.items['shoulder']) : '/images/emptyslots/shoulder.gif'})`}}/>
                                     </a></div>
@@ -98,7 +120,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['back']) ? profileData.items['back'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['back']) ? this.getItemLink(profileData.items['back']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['back']) ? this.getItemImage(profileData.items['back']) : '/images/emptyslots/back.gif'})`}}/>
                                     </a></div>
@@ -111,7 +133,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['chest']) ? profileData.items['chest'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['chest']) ? this.getItemLink(profileData.items['chest']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['chest']) ? this.getItemImage(profileData.items['chest']) : '/images/emptyslots/chest.gif'})`}}/>
                                     </a></div>
@@ -124,7 +146,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['shirt']) ? profileData.items['shirt'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['shirt']) ? this.getItemLink(profileData.items['shirt']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['shirt']) ? this.getItemImage(profileData.items['shirt']) : '/images/emptyslots/shirt.gif'})`}}/>
                                     </a></div>
@@ -137,7 +159,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['tabard']) ? profileData.items['tabard'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['tabard']) ? this.getItemLink(profileData.items['tabard']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['tabard']) ? this.getItemImage(profileData.items['tabard']) : '/images/emptyslots/tabard.gif'})`}}/>
                                     </a></div>
@@ -150,7 +172,7 @@ class MainProfileView extends Component {
                                             <span>{(profileData.items['wrist']) ? profileData.items['wrist'].itemLevel : ''}</span>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href={(profileData.items['wrist']) ? this.getItemLink(profileData.items['wrist']) : ""}>
                                         <div className="item-img"
                                              style={{backgroundImage: `url(${(profileData.items['wrist']) ? this.getItemImage(profileData.items['wrist']) : '/images/emptyslots/wrist.gif'})`}}/>
                                     </a></div>

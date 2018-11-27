@@ -92,8 +92,6 @@ class CreateProfile extends Component {
 
             let postData = {region, characterName, serverName};
 
-
-
             createProfile(postData).then((data) => {
                 if (!data) {
                   this.setState({
