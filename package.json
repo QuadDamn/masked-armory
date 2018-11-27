@@ -11,15 +11,15 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
-    "blizzard.js": "^2.3.2",
     "body-parser": "^1.18.3",
-    "config": "^2.0.1",
+    "config": "^2.0.2",
     "cors": "^2.8.5",
     "cron": "^1.5.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-mongo-db": "git+https://github.com/1RM/express-mongo-db.git",
-    "mongodb": "^3.1.10"
+    "mongodb": "^3.1.10",
+    "wow-armory.js": "^1.0.7"
   },
   "devDependencies": {
     "chai": "^4.2.0",

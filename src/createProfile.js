@@ -1,11 +1,8 @@
 const { ObjectId } = require('mongodb');
+const WowArmory = require('wow-armory.js');
 
 process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
 let config = require('config');
-
-const blizzard = require('blizzard.js').initialize({
-    apikey: config.get('wow_api_key')
-});
 
 // There is not a way to build these counts dynamically at the moment,
 // so we have to get these counts of the game directly.
@@ -25,54 +22,70 @@ const totalAchievementCounts = {
 /**
  * Handles the creation of the actual armory by pulling information from Blizzard's API for WoW.
  */
-function createProfile(req, res) {
-    const realm = req.body.serverName.replace(/\\/g, '');
-    const name = req.body.characterName;
-    const origin = req.body.region;
-    const locale = 'en_US';
-    const keys = 'stats,professions,titles,items,reputation,mounts,pets,achievements,progression,pvp';
+async function createProfile(req, res) {
+    const serverName = req.body.serverName.replace(/\\/g, '');
+    const characterName = req.body.characterName;
+    const region = req.body.region;
 
-    blizzard.wow.character(keys, {realm, name, origin, locale})
-        .then(async (response) => {
-            const armoryData = response.data;
+    try {
+        const armory = new WowArmory(
+            config.get('bnet_id'),
+            config.get('bnet_secret'),
+            config.get('bnet_region')
+        );
 
-            // ****** START :: Handling Raid Zone Progression for BfA Raid Content ********
+        let response = await armory.getCharacter(region, serverName, characterName);
 
-            // Current tier zones -- T18-T21 -- Legion Expansion
-            const raidList = armoryData.progression.raids;
-            const raidZones = ['Uldir'];
+        const armoryData = response.data;
 
-            const raidZoneData = raidZones.map((raidZone) => {
-                for (let zone in raidList) {
-                    if (raidList[zone].name == raidZone) {
-                        return raidList[zone];
-                    }
+        // ****** START :: Handling Raid Zone Progression for BfA Raid Content ********
+
+        // Current tier zones -- T18-T21 -- Legion Expansion
+        const raidList = armoryData.progression.raids;
+        const raidZones = ['Uldir'];
+
+        const raidZoneData = raidZones.map((raidZone) => {
+            for (let zone in raidList) {
+                if (raidList[zone].name == raidZone) {
+                    return raidList[zone];
                 }
-            });
+            }
+        });
 
-            delete armoryData['progression'];
-            armoryData['progression'] = raidZoneData;
+        delete armoryData['progression'];
+        armoryData['progression'] = raidZoneData;
 
-            // ****** END :: Handling Raid Zone Progression for BfA Raid Content ********
+        // ****** END :: Handling Raid Zone Progression for BfA Raid Content ********
 
-            // ****** START :: Achievement Manipulation ********
+        // ****** START :: Achievement Manipulation ********
 
-            let achievementsCompleted = armoryData.achievements.achievementsCompleted;
-            let achievementList = await req.db.collection('achievements').findOne({"_id": ObjectId(config.get("achievements_object_id"))});
+        let achievementsCompleted = armoryData.achievements.achievementsCompleted;
+        let achievementList = await req.db.collection('achievements').findOne({"_id": ObjectId(config.get("achievements_object_id"))});
 
-            console.log(achievementList);
+        let achievementHeaders = achievementList.achievements;
 
-            let achievementHeaders = achievementList.achievements;
+        armoryData['achievementCounts'] = achievementHeaders.map((header) => {
+            let headerName = header.name;
+            let headersGrabFullDetails = ['Legacy', 'Feats of Strength'];
 
-            armoryData['achievementCounts'] = achievementHeaders.map((header) => {
-                let headerName = header.name;
-                let headersGrabFullDetails = ['Legacy', 'Feats of Strength'];
+            let achCount = 0;
+            let fullInfoAchievements = [];
 
-                let achCount = 0;
-                let fullInfoAchievements = [];
+            if (typeof header.achievements !== 'undefined') {
+                header.achievements.forEach((ach) => {
+                    if (achievementsCompleted.includes(ach.id)) {
+                        achCount++;
 
-                if (typeof header.achievements !== 'undefined') {
-                    header.achievements.forEach((ach) => {
+                        if (headersGrabFullDetails.includes(headerName)) {
+                            fullInfoAchievements.push(ach);
+                        }
+                    }
+                });
+            }
+
+            if (typeof header.categories !== 'undefined') {
+                for (let category in header.categories) {
+                    header.categories[category].achievements.forEach((ach) => {
                         if (achievementsCompleted.includes(ach.id)) {
                             achCount++;
 
@@ -82,53 +95,39 @@ function createProfile(req, res) {
                         }
                     });
                 }
-
-                if (typeof header.categories !== 'undefined') {
-                    for (let category in header.categories) {
-                        header.categories[category].achievements.forEach((ach) => {
-                            if (achievementsCompleted.includes(ach.id)) {
-                                achCount++;
-
-                                if (headersGrabFullDetails.includes(headerName)) {
-                                    fullInfoAchievements.push(ach);
-                                }
-                            }
-                        });
-                    }
-                }
-
-                return {
-                    "headerName": headerName,
-                    "achievementCount": achCount,
-                    "achievementTotalCount": totalAchievementCounts[headerName],
-                    "achievementDetails": fullInfoAchievements
-                }
-            });
-
-            // We reformulated the achievement counts, so we don't need to store all of the achievement data anymore.
-            delete armoryData['achievements'];
-
-            // ****** END :: Achievement Manipulation ********
-
-            // Need the origin to be in the data store so that we know where to pull
-            // character image renders from the Vue side on armory display.
-            armoryData['origin'] = origin;
-
-            const armoryDataFormatted = {'data': armoryData};
-
-            try {
-                await req.db.collection('armories').insertOne(armoryDataFormatted);
-                let objectId = armoryDataFormatted._id;
-                return res.status(200).send({ status: 'success', data: { profileId: objectId }});
-            } catch (err) {
-                console.log(err);
-                return res.status(500).send({ status: 'error', message: err })
             }
-        })
-        .catch((err) => {
-            console.log(err);
-            return res.status(500).send({ status: 'error', message: err })
+
+            return {
+                "headerName": headerName,
+                "achievementCount": achCount,
+                "achievementTotalCount": totalAchievementCounts[headerName],
+                "achievementDetails": fullInfoAchievements
+            }
         });
+
+        // We reformulated the achievement counts, so we don't need to store all of the achievement data anymore.
+        delete armoryData['achievements'];
+
+        // ****** END :: Achievement Manipulation ********
+
+        // Need the origin to be in the data store so that we know where to pull
+        // character image renders from the Vue side on armory display.
+        armoryData['origin'] = region;
+
+        const armoryDataFormatted = {'data': armoryData};
+
+        try {
+            await req.db.collection('armories').insertOne(armoryDataFormatted);
+            let objectId = armoryDataFormatted._id;
+            return res.status(200).send({ status: 'success', data: { profileId: objectId }});
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({ status: 'error', message: err });
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({ status: 'error', message: err });
+    }
 }
 
 module.exports = createProfile;

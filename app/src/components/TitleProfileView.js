@@ -13,7 +13,7 @@ class TitleProfileView extends Component {
         titles.sort((a, b) => {
             a = a['name'];
             b = b['name'];
-            return a == b ? 0 : (a < b ? -1 : 1)
+            return a === b ? 0 : (a < b ? -1 : 1)
         });
 
         return titles;
@@ -34,7 +34,7 @@ class TitleProfileView extends Component {
                         </div>
                         <div className="row titles">
                             {sortedTitles.map((title) => {
-                                return <div key={title.id} className="title col-md-4 col-6"><a href={`https://wowhead.com/?title=${title.id}`} target="_blank" className="title-rect">{title.name}</a></div>
+                                return <div key={title.id} className="title col-md-4 col-6"><a href={`https://wowhead.com/?title=${title.id}`} target="_blank" rel="noopener noreferrer" className="title-rect">{title.name}</a></div>
                             })};
                         </div>
                     </div>

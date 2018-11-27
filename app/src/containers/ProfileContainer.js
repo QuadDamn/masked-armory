@@ -54,10 +54,10 @@ class ProfileContainer extends Component {
 
         switch (selectedView) {
             case 'main':
-                componentToRender = <MainProfileView profileData={profileData} profileId={profileId} />;
+                componentToRender = <MainProfileView profileData={profileData} />;
                 break;
             case 'titles':
-                componentToRender = <TitleProfileView profileData={profileData} profileId={profileId} />;
+                componentToRender = <TitleProfileView profileData={profileData} />;
                 break;
             // case 'mounts':
             //     componentToRender = <MountProfileView profileData={profileData} profileId={profileId} />;
@@ -74,6 +74,8 @@ class ProfileContainer extends Component {
             // case 'share':
             //     componentToRender = <ShareProfileView profileData={profileData} profileId={profileId} />;
             //     break;
+                default:
+                    break;
         }
 
         this.setState({
@@ -82,7 +84,7 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        const {profileId, profileData, loading, componentToRender} = this.state;
+        const {profileData, loading, componentToRender} = this.state;
 
         if (loading === true || !profileData) {
             return <div/>;

@@ -35,10 +35,8 @@ class MainProfileView extends Component {
     }
 
     render() {
-        const {profileId, profileData} = this.props;
+        const {profileData} = this.props;
         const professions = this.getProfessions(profileData.professions.primary);
-
-        console.log(profileData);
 
         return (
             <Fragment>
