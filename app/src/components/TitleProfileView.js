@@ -1,27 +1,7 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 
-class TitleProfileView extends Component {
-    titleSort(titles) {
-        let arrayLength = titles.length;
-
-        for (let i = 0; i < arrayLength; i++) {
-            let cleanTitle = titles[i].name.replace('%s', '');
-            cleanTitle = cleanTitle.replace(',', '');
-            titles[i].name = cleanTitle.trim();
-        }
-
-        titles.sort((a, b) => {
-            a = a['name'];
-            b = b['name'];
-            return a === b ? 0 : (a < b ? -1 : 1)
-        });
-
-        return titles;
-    }
-
-    render() {
-        const {profileData} = this.props;
-        const sortedTitles = this.titleSort(profileData.titles);
+const TitleProfileView = (props) => {
+        const {profileData} = props;
 
         return (
             <Fragment>
@@ -33,7 +13,7 @@ class TitleProfileView extends Component {
                             <div className="nav-name"><img src="/images/titles.svg" alt=""/>TITLES</div>
                         </div>
                         <div className="row titles">
-                            {sortedTitles.map((title) => {
+                            {profileData.titles.map((title) => {
                                 return <div key={title.id} className="title col-md-4 col-6"><a href={`https://wowhead.com/?title=${title.id}`} target="_blank" rel="noopener noreferrer" className="title-rect">{title.name}</a></div>
                             })};
                         </div>
@@ -41,7 +21,6 @@ class TitleProfileView extends Component {
                 </div>
             </Fragment>
         );
-    }
-}
+};
 
 export default TitleProfileView;

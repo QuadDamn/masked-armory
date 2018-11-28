@@ -2,6 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {getProfile} from "../utils/api";
 import MainProfileView from '../components/MainProfileView';
 import TitleProfileView from '../components/TitleProfileView';
+import MountProfileView from '../components/MountProfileView';
+import PetProfileView from '../components/PetProfileView';
 
 class ProfileContainer extends Component {
 
@@ -59,12 +61,12 @@ class ProfileContainer extends Component {
             case 'titles':
                 componentToRender = <TitleProfileView profileData={profileData} />;
                 break;
-            // case 'mounts':
-            //     componentToRender = <MountProfileView profileData={profileData} profileId={profileId} />;
-            //     break;
-            // case 'pets':
-            //     componentToRender = <PetProfileView profileData={profileData} profileId={profileId} />;
-            //     break;
+            case 'mounts':
+                componentToRender = <MountProfileView profileData={profileData} />;
+                break;
+            case 'pets':
+                componentToRender = <PetProfileView profileData={profileData} profileId={profileId} />;
+                break;
             // case 'reputations':
             //     componentToRender = <ReputationProfileView profileData={profileData} profileId={profileId} />;
             //     break;
@@ -104,22 +106,22 @@ class ProfileContainer extends Component {
                                 <li><a onClick={() => this.changeView('titles')}>
                                     <div><img src="/images/titles.svg" alt=""/></div>
                                     TITLES</a></li>
-                                <li><a href="mounts.html">
+                                <li><a onClick={() => this.changeView('mounts')}>
                                     <div><img src="/images/mounts.svg" alt=""/></div>
                                     MOUNTS</a></li>
-                                <li><a href="pets.html">
+                                <li><a onClick={() => this.changeView('pets')}>
                                     <div><img src="/images/pets.svg" alt=""/></div>
                                     PETS</a></li>
-                                <li><a href="reputations.html">
+                                <li><a onClick={() => this.changeView('reputations')}>
                                     <div><img src="/images/rebutations.svg" alt=""/></div>
                                     REPUTATIONS</a></li>
-                                <li><a href="achievments.html">
+                                <li><a onClick={() => this.changeView('achievements')}>
                                     <div><img src="/images/achievements.svg" alt=""/></div>
                                     ACHIEVEMENTS</a></li>
                                 {/*<li><a href="progress.html">*/}
                                     {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
                                     {/*PROGRESS</a></li>*/}
-                                <li className="no-border"><a href="share.html">
+                                <li><a onClick={() => this.changeView('share')}>
                                     <div><img src="/images/share.svg" alt=""/></div>
                                     SHARE</a></li>
                                 <li className="head">ADVERTISEMENTS</li>

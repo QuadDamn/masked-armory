@@ -16,6 +16,10 @@ async function getProfile(req, res) {
         data.raceName = getRaceName(data['race']);
         data.className = getClassName(data['class']);
 
+        data.mounts = await getMounts(req.db, data.mounts.collected);
+        data.pets = await getPets(req.db, data.pets.collected);
+        data.titles = await sortAndCleanTitles(data.titles);
+
         if (!isEmpty(document)) {
             return res.status(200).send({ status: 'success', data: { profile: data }});
         } else {
@@ -25,6 +29,67 @@ async function getProfile(req, res) {
         console.log(err);
         return res.status(500).send({ status: 'error', message: err });
     }
+}
+
+async function getMounts(db, characterMounts) {
+    const collection = db.collection('mounts');
+    const mounts = await collection.find({}).toArray();
+
+    const mountCollection = mounts[0].mounts;
+    let mountsCollected = [];
+
+    for (let j = 0; j < characterMounts.length; j++) {
+        for (let i = 0; i < mountCollection.length; i++) {
+            if (mountCollection[i].name === characterMounts[j].name) {
+                mountsCollected.push(mountCollection[i]);
+                break;
+            }
+        }
+    }
+
+    return mountsCollected;
+}
+
+async function getPets(db, characterPets) {
+    const collection = db.collection('pets');
+    const pets = await collection.find({}).toArray();
+
+    const petCollection = pets[0].pets;
+    let petsCollected = [];
+
+    for (let j = 0; j < characterPets.length; j++) {
+        for (let i = 0; i < petCollection.length; i++) {
+            if (petCollection[i].name === characterPets[j].name) {
+                petCollection[i].spellId = characterPets[j].spellId;
+                petsCollected.push(petCollection[i]);
+                break;
+            }
+        }
+    }
+
+    petsCollected.sort((a, b) => {
+        a = a['name'];
+        b = b['name'];
+        return a === b ? 0 : (a < b ? -1 : 1)
+    });
+
+    return petsCollected;
+}
+
+function sortAndCleanTitles(titles) {
+    for (let i = 0; i < titles.length; i++) {
+        let cleanTitle = titles[i].name.replace('%s', '');
+        cleanTitle = cleanTitle.replace(',', '');
+        titles[i].name = cleanTitle.trim();
+    }
+
+    titles.sort((a, b) => {
+        a = a['name'];
+        b = b['name'];
+        return a === b ? 0 : (a < b ? -1 : 1)
+    });
+
+    return titles;
 }
 
 function getRaceName(raceId) {
