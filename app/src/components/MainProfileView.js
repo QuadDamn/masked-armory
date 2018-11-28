@@ -94,14 +94,14 @@ class MainProfileView extends Component {
     }
 
     render() {
-        const {profileData} = this.props;
+        const {profileData, profilePicture} = this.props;
         const professions = this.getProfessions(profileData.professions.primary);
 
         return (
             <Fragment>
                 <div id="main-content">
                     <div className="content cont-main" id="content">
-                        <div className="background"/>
+                        <div className="background" style={{backgroundImage: `url(${profilePicture})`}}/>
                         <div className="content-header">
                             <div
                                 className="level-name">Level {profileData.level} {profileData.raceName} {profileData.className}</div>
