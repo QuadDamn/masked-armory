@@ -31,6 +31,295 @@ async function getProfile(req, res) {
     }
 }
 
+async function getReputations(reputations) {
+
+    const reps = {
+        '7th Legion': {
+            'faction': 'Alliance',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Storm\'s Wake': {
+            'faction': 'Alliance',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Order of Embers': {
+            'faction': 'Alliance',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Proudmoore Admiralty': {
+            'faction': 'Alliance',
+            'expansion': 'Battle for Azeroth'
+        },
+        'The Honorbound': {
+            'faction': 'Horde',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Zandalari Empire': {
+            'faction': 'Horde',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Talanji\'s Expedition': {
+            'faction': 'Horde',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Voldunai': {
+            'faction': 'Horde',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Tortollan Seekers': {
+            'faction': 'Neutral',
+            'expansion': 'Battle for Azeroth'
+        },
+        'Champions of Azeroth': {
+            'faction': 'Neutral',
+            'expansion': 'Battle for Azeroth'
+        },
+
+        'Armies of Legionfall': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Army of the Light': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Argussian Reach': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Court of Farondis': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Dreamweavers': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Highmountain Tribe': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Talon\'s Vengeance': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'The Nightfallen': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'The Wardens': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+        'Valarjar': {
+            'faction': 'Neutral',
+            'expansion': 'Legion'
+        },
+
+        'Hand of the Prophet': {
+            'faction': 'Alliance',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Vol\'jin\'s Headhunters': {
+            'faction': 'Horde',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Order of the Awakened': {
+            'faction': 'Neutral',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'The Saberstalkers': {
+            'faction': 'Neutral',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Arakkoa Outcasts': {
+            'faction': 'Neutral',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Council of Exarchs': {
+            'faction': 'Alliance',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Frostwolf Orcs': {
+            'faction': 'Horde',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Sha\'tari Defense': {
+            'faction': 'Alliance',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Laughing Skull Orc': {
+            'faction': 'Horde',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Steamwheedle Preservation Society': {
+            'faction': 'Neutral',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Wrynn\'s Vanguard': {
+            'faction': 'Alliance',
+            'expansion': 'Warlords Of Draenor'
+        },
+        'Vol\'jin\'s Spear': {
+            'faction': 'Horde',
+            'expansion': 'Warlords Of Draenor'
+        },
+
+
+        'The August Celestials': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'The Anglers': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'The Black Prince': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Golden Lotus': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Sunreaver Onslaught': {
+            'faction': 'Horde',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Kirin Tor Offensive': {
+            'faction': 'Alliance',
+            'expansion': 'Mists of Pandaria'
+        },
+        'The Klaxxi': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'The Lorewalkers': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Operation: Shieldwall': {
+            'faction': 'Alliance',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Dominance Offensive': {
+            'faction': 'Horde',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Order of the Cloud Serpent': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Forest Hozen': {
+            'faction': 'Horde',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Pearlfin Jinyu': {
+            'faction': 'Alliance',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Emperor Shaohao': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Shado-Pan': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'Shado-Pan Assault': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+        'The Tillers': {
+            'faction': 'Neutral',
+            'expansion': 'Mists of Pandaria'
+        },
+
+
+        'Avengers of Hyjal': {
+            'faction': 'Neutral',
+            'expansion': 'Cataclysm'
+        },
+        'Hellscream\'s Reach': {
+            'faction': 'Horde',
+            'expansion': 'Cataclysm'
+        },
+        'Baradin\'s Wardens': {
+            'faction': 'Alliance',
+            'expansion': 'Cataclysm'
+        },
+        'Wildhammer Clan': {
+            'faction': 'Alliance',
+            'expansion': 'Cataclysm'
+        },
+        'Dragonmaw Clan': {
+            'faction': 'Horde',
+            'expansion': 'Cataclysm'
+        },
+        'Guardians of Hyjal': {
+            'faction': 'Neutral',
+            'expansion': 'Cataclysm'
+        },
+        'Ramkahen': {
+            'faction': 'Neutral',
+            'expansion': 'Cataclysm'
+        },
+        'The Earthen Ring': {
+            'faction': 'Neutral',
+            'expansion': 'Cataclysm'
+        },
+        'Therazane': {
+            'faction': 'Neutral',
+            'expansion': 'Cataclysm'
+        },
+
+
+
+        '': {
+            'faction': 'Neutral',
+            'expansion': 'Wrath of the Lich King'
+        },
+
+
+
+    }
+
+
+}
+
+function getReputationStandingName(id) {
+    let name = '';
+
+    switch (id) {
+        case 0:
+            name = 'Hated';
+            break;
+        case 1:
+            name = 'Hostile';
+            break;
+        case 2:
+            name = 'Unfriendly';
+            break;
+        case 3:
+            name = 'Neutral';
+            break;
+        case 4:
+            name = 'Friendly';
+            break;
+        case 5:
+            name = 'Honored';
+            break;
+        case 6:
+            name = 'Revered';
+            break;
+        case 7:
+            name = 'Exalted';
+            break;
+    }
+
+    return name;
+}
+
 async function getMounts(db, characterMounts) {
     const collection = db.collection('mounts');
     const mounts = await collection.find({}).toArray();

@@ -5,7 +5,7 @@ class ReputationProfileView extends Component {
 
     render() {
         const {profileData} = this.props;
-        const mounts = profileData.reputations;
+        const reputations = profileData.reputations;
 
         return (
             <Fragment>

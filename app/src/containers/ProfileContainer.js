@@ -4,6 +4,7 @@ import MainProfileView from '../components/MainProfileView';
 import TitleProfileView from '../components/TitleProfileView';
 import MountProfileView from '../components/MountProfileView';
 import PetProfileView from '../components/PetProfileView';
+import ReputationProfileView from '../components/ReputationProfileView';
 
 class ProfileContainer extends Component {
 
@@ -47,6 +48,8 @@ class ProfileContainer extends Component {
         });
 
         this.getComponentToRender(selectedView);
+
+        this.closeNav();
     };
 
     getComponentToRender(selectedView) {
@@ -67,9 +70,9 @@ class ProfileContainer extends Component {
             case 'pets':
                 componentToRender = <PetProfileView profileData={profileData} profileId={profileId} />;
                 break;
-            // case 'reputations':
-            //     componentToRender = <ReputationProfileView profileData={profileData} profileId={profileId} />;
-            //     break;
+            case 'reputations':
+                componentToRender = <ReputationProfileView profileData={profileData} profileId={profileId} />;
+                break;
             // case 'achievements':
             //     componentToRender = <AchievementProfileView profileData={profileData} profileId={profileId} />;
             //     break;
@@ -86,7 +89,7 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        const {profileData, loading, componentToRender} = this.state;
+        const {profileData, loading, componentToRender, currentView} = this.state;
 
         if (loading === true || !profileData) {
             return <div/>;
@@ -100,28 +103,28 @@ class ProfileContainer extends Component {
                         <div className="navigation">
                             <ul>
                                 <li className="head">ARMORY NAVIGATION</li>
-                                <li className="active"><a onClick={() => this.changeView('main')}>
+                                <li className={(currentView === 'main') ? 'active' : ""}><a onClick={() => this.changeView('main')}>
                                     <div><img src="/images/main.svg" alt=""/></div>
                                     MAIN</a></li>
-                                <li><a onClick={() => this.changeView('titles')}>
+                                <li className={(currentView === 'titles') ? 'active' : ""}><a onClick={() => this.changeView('titles')}>
                                     <div><img src="/images/titles.svg" alt=""/></div>
                                     TITLES</a></li>
-                                <li><a onClick={() => this.changeView('mounts')}>
+                                <li className={(currentView === 'mounts') ? 'active' : ""}><a onClick={() => this.changeView('mounts')}>
                                     <div><img src="/images/mounts.svg" alt=""/></div>
                                     MOUNTS</a></li>
-                                <li><a onClick={() => this.changeView('pets')}>
+                                <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={() => this.changeView('pets')}>
                                     <div><img src="/images/pets.svg" alt=""/></div>
                                     PETS</a></li>
-                                <li><a onClick={() => this.changeView('reputations')}>
+                                <li className={(currentView === 'reputations') ? 'active' : ""}><a onClick={() => this.changeView('reputations')}>
                                     <div><img src="/images/rebutations.svg" alt=""/></div>
                                     REPUTATIONS</a></li>
-                                <li><a onClick={() => this.changeView('achievements')}>
+                                <li className={(currentView === 'achievements') ? 'active' : ""}><a onClick={() => this.changeView('achievements')}>
                                     <div><img src="/images/achievements.svg" alt=""/></div>
                                     ACHIEVEMENTS</a></li>
                                 {/*<li><a href="progress.html">*/}
                                     {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
                                     {/*PROGRESS</a></li>*/}
-                                <li><a onClick={() => this.changeView('share')}>
+                                <li className={(currentView === 'share') ? 'active' : ""}><a onClick={() => this.changeView('share')}>
                                     <div><img src="/images/share.svg" alt=""/></div>
                                     SHARE</a></li>
                                 <li className="head">ADVERTISEMENTS</li>
@@ -148,31 +151,31 @@ class ProfileContainer extends Component {
                             <div className="navigation">
                                 <ul>
                                     <li className="head">ARMORY NAVIGATION</li>
-                                    <li className="active"><a onClick={() => this.changeView('main')}>
+                                    <li className={(currentView === 'main') ? 'active' : ""}><a onClick={() => this.changeView('main')}>
                                         <div><img src="/images/main.svg" alt=""/></div>
                                         MAIN</a></li>
-                                    <li><a onClick={() => this.changeView('titles')}>
+                                    <li className={(currentView === 'titles') ? 'active' : ""}><a onClick={() => this.changeView('titles')}>
                                         <div><img src="/images/titles.svg" alt=""/></div>
                                         TITLES</a></li>
-                                    <li><a href="mounts.html">
+                                    <li className={(currentView === 'mounts') ? 'active' : ""}><a onClick={() => this.changeView('mounts')}>
                                         <div><img src="/images/mounts.svg" alt=""/></div>
                                         MOUNTS</a></li>
-                                    <li><a href="pets.html">
+                                    <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={() => this.changeView('pets')}>
                                         <div><img src="/images/pets.svg" alt=""/></div>
                                         PETS</a></li>
-                                    <li><a href="reputations.html">
+                                    <li className={(currentView === 'reputations') ? 'active' : ""}><a onClick={() => this.changeView('reputations')}>
                                         <div><img src="/images/rebutations.svg" alt=""/></div>
                                         REPUTATIONS</a></li>
-                                    <li><a href="achievments.html">
+                                    <li className={(currentView === 'achievements') ? 'active' : ""}><a onClick={() => this.changeView('achievements')}>
                                         <div><img src="/images/achievements.svg" alt=""/></div>
                                         ACHIEVEMENTS</a></li>
                                     {/*<li><a href="progress.html">*/}
                                         {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
                                         {/*PROGRESS</a></li>*/}
-                                    <li className="no-border"><a href="share.html">
+                                    <li className={(currentView === 'share') ? 'no-border active' : "no-border"}><a onClick={() => this.changeView('share')}>
                                         <div><img src="/images/share.svg" alt=""/></div>
                                         SHARE</a></li>
-                                    <li className="head">SIDE NAVIGATION</li>
+                                    {/*<li className="head">SIDE NAVIGATION</li>*/}
                                     {/*<li className="ad"><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a>*/}
                                     {/*</li>*/}
                                     {/*<li className="ad"><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site*/}
