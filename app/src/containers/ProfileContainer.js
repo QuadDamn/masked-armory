@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import {Loader} from 'react-overlay-loader';
 import {getProfile} from "../utils/api";
 import MainProfileView from '../components/MainProfileView';
 import TitleProfileView from '../components/TitleProfileView';
@@ -7,6 +8,7 @@ import PetProfileView from '../components/PetProfileView';
 import ReputationProfileView from '../components/ReputationProfileView';
 import AchievementProfileView from '../components/AchievementProfileView';
 import ShareProfileView from '../components/ShareProfileView';
+import PageNotFound from '../components/PageNotFound';
 
 class ProfileContainer extends Component {
 
@@ -16,7 +18,8 @@ class ProfileContainer extends Component {
     loading: false,
     currentView: 'main',
     componentToRender: <div/>,
-    profilePicture: ''
+    profilePicture: '',
+    pageNotFound: false
   };
 
   async componentDidMount() {
@@ -27,7 +30,6 @@ class ProfileContainer extends Component {
     const profileId = this.props.match.params.id;
 
     getProfile(profileId).then(async (data) => {
-
       const profilePicture = await this.buildProfilePictureLink(data.data.profile.thumbnail, data.data.profile.origin);
 
       this.setState({
@@ -38,6 +40,12 @@ class ProfileContainer extends Component {
       });
 
       this.getComponentToRender('main');
+    }).catch((err) => {
+      console.log(err);
+      this.setState({
+        pageNotFound: true,
+        loading: false
+      });
     })
   }
 
@@ -49,7 +57,9 @@ class ProfileContainer extends Component {
     document.getElementById("mynav").classList.remove('mynav2');
   }
 
-  changeView = (selectedView) => {
+  handleChangeView = (event, selectedView) => {
+    event.preventDefault();
+
     this.setState({
       currentView: selectedView
     });
@@ -79,25 +89,25 @@ class ProfileContainer extends Component {
 
     switch (selectedView) {
       case 'main':
-        componentToRender = <MainProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <MainProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'titles':
-        componentToRender = <TitleProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <TitleProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'mounts':
-        componentToRender = <MountProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <MountProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'pets':
-        componentToRender = <PetProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <PetProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'reputations':
-        componentToRender = <ReputationProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <ReputationProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'achievements':
-        componentToRender = <AchievementProfileView profileData={profileData} profilePicture={profilePicture} />;
+        componentToRender = <AchievementProfileView profileData={profileData} profilePicture={profilePicture}/>;
         break;
       case 'share':
-        componentToRender = <ShareProfileView profileData={profileData} profileId={profileId} profilePicture={profilePicture} />;
+        componentToRender = <ShareProfileView profileData={profileData} profileId={profileId} profilePicture={profilePicture}/>;
         break;
       default:
         break;
@@ -109,44 +119,41 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    const {profileData, loading, componentToRender, currentView} = this.state;
+    const {loading, componentToRender, currentView, pageNotFound} = this.state;
 
-    if (loading === true || !profileData) {
-      return <div/>;
+    if (pageNotFound === true) {
+      return <PageNotFound/>;
     }
 
     return (
       <Fragment>
         <div className="page">
           <nav className="side-nav d-none d-lg-block">
-              <div className="nav-logo"><a href="/"><img src="/images/logo.png" alt=""/></a></div>
+            <div className="nav-logo"><a href="/"><img src="/images/logo.png" alt=""/></a></div>
             <div className="navigation">
               <ul>
                 <li className="head">ARMORY NAVIGATION</li>
-                <li className={(currentView === 'main') ? 'active' : ""}><a onClick={() => this.changeView('main')}>
+                <li className={(currentView === 'main') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'main')}>
                   <div><img src="/images/main.svg" alt=""/></div>
                   MAIN</a></li>
-                <li className={(currentView === 'titles') ? 'active' : ""}><a onClick={() => this.changeView('titles')}>
+                <li className={(currentView === 'titles') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'titles')}>
                   <div><img src="/images/titles.svg" alt=""/></div>
                   TITLES</a></li>
-                <li className={(currentView === 'mounts') ? 'active' : ""}><a onClick={() => this.changeView('mounts')}>
+                <li className={(currentView === 'mounts') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'mounts')}>
                   <div><img src="/images/mounts.svg" alt=""/></div>
                   MOUNTS</a></li>
-                <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={() => this.changeView('pets')}>
+                <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'pets')}>
                   <div><img src="/images/pets.svg" alt=""/></div>
                   PETS</a></li>
                 <li className={(currentView === 'reputations') ? 'active' : ""}><a
-                  onClick={() => this.changeView('reputations')}>
+                  onClick={(event) => this.handleChangeView(event, 'reputations')}>
                   <div><img src="/images/reputations.svg" alt=""/></div>
                   REPUTATIONS</a></li>
                 <li className={(currentView === 'achievements') ? 'active' : ""}><a
-                  onClick={() => this.changeView('achievements')}>
+                  onClick={(event) => this.handleChangeView(event, 'achievements')}>
                   <div><img src="/images/achievements.svg" alt=""/></div>
                   ACHIEVEMENTS</a></li>
-                {/*<li><a href="progress.html">*/}
-                {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
-                {/*PROGRESS</a></li>*/}
-                <li className={(currentView === 'share') ? 'active' : ""}><a onClick={() => this.changeView('share')}>
+                <li className={(currentView === 'share') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'share')}>
                   <div><img src="/images/share.svg" alt=""/></div>
                   SHARE</a></li>
                 <li className="head">ADVERTISEMENTS</li>
@@ -173,44 +180,35 @@ class ProfileContainer extends Component {
               <div className="navigation">
                 <ul>
                   <li className="head">ARMORY NAVIGATION</li>
-                  <li className={(currentView === 'main') ? 'active' : ""}><a onClick={() => this.changeView('main')}>
+                  <li className={(currentView === 'main') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'main')}>
                     <div><img src="/images/main.svg" alt=""/></div>
                     MAIN</a></li>
                   <li className={(currentView === 'titles') ? 'active' : ""}><a
-                    onClick={() => this.changeView('titles')}>
+                    onClick={(event) => this.handleChangeView(event, 'titles')}>
                     <div><img src="/images/titles.svg" alt=""/></div>
                     TITLES</a></li>
                   <li className={(currentView === 'mounts') ? 'active' : ""}><a
-                    onClick={() => this.changeView('mounts')}>
+                    onClick={(event) => this.handleChangeView(event, 'mounts')}>
                     <div><img src="/images/mounts.svg" alt=""/></div>
                     MOUNTS</a></li>
-                  <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={() => this.changeView('pets')}>
+                  <li className={(currentView === 'pets') ? 'active' : ""}><a onClick={(event) => this.handleChangeView(event, 'pets')}>
                     <div><img src="/images/pets.svg" alt=""/></div>
                     PETS</a></li>
                   <li className={(currentView === 'reputations') ? 'active' : ""}><a
-                    onClick={() => this.changeView('reputations')}>
+                    onClick={(event) => this.handleChangeView(event, 'reputations')}>
                     <div><img src="/images/reputations.svg" alt=""/></div>
                     REPUTATIONS</a></li>
                   <li className={(currentView === 'achievements') ? 'active' : ""}><a
-                    onClick={() => this.changeView('achievements')}>
+                    onClick={(event) => this.handleChangeView(event, 'achievements')}>
                     <div><img src="/images/achievements.svg" alt=""/></div>
                     ACHIEVEMENTS</a></li>
-                  {/*<li><a href="progress.html">*/}
-                  {/*<div><img src="/images/progress.svg" alt=""/></div>*/}
-                  {/*PROGRESS</a></li>*/}
                   <li className={(currentView === 'share') ? 'no-border active' : "no-border"}><a
-                    onClick={() => this.changeView('share')}>
+                    onClick={(event) => this.handleChangeView(event, 'share')}>
                     <div><img src="/images/share.svg" alt=""/></div>
                     SHARE</a></li>
-                  {/*<li className="head">SIDE NAVIGATION</li>*/}
-                  {/*<li className="ad"><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a>*/}
-                  {/*</li>*/}
-                  {/*<li className="ad"><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site*/}
-                  {/*Feeedback</a>*/}
-                  {/*</li>*/}
-                  {/*<li className="ad no-border"><a href="#"><img src="/images/about.svg" alt=""/>About*/}
-                  {/*Masked*/}
-                  {/*Armory</a></li>*/}
+                  <li className="head">SITE SUPPORT</li>
+                  <li className="ad"><a href="mailto:shanej@khaccounts.net?subject=Masked Armory Bug / Feedback"><img
+                    src="/images/bug.svg" alt=""/>Report Bug | Site Feeedback</a></li>
                   <li className="head">ADVERTISEMENTS</li>
                   <li className="ad"><a href="https://www.khaccounts.net/">BUY SELL WOW ACCOUNTS</a>
                   </li>
@@ -225,15 +223,18 @@ class ProfileContainer extends Component {
           <div className="main">
             <div className="nav-bar d-none d-lg-block">
               <ul>
-                {/*<li><a href="#"><img src="/images/donate.svg" alt=""/>Want to Donate?</a></li>*/}
-                {/*<li><a href="#"><img src="/images/bug.svg" alt=""/>Report Bug | Site Feeedback</a></li>*/}
-                {/*<li><a href="#"><img src="/images/about.svg" alt=""/>About Masked Armory</a></li>*/}
+                <li><a href="mailto:shanej@khaccounts.net?subject=Masked Armory Bug / Feedback"><img
+                  src="/images/bug.svg" alt=""/>Report Bug | Site Feeedback</a></li>
               </ul>
             </div>
 
             {componentToRender}
           </div>
         </div>
+
+        <Loader fullPage loading={loading} text="Loading Profile..."
+                containerStyle={{backgroundColor: "rgba(0, 0, 0, 0.9)"}}
+                textStyle={{color: "#fff", marginTop: "70px"}}/>
       </Fragment>);
   }
 }

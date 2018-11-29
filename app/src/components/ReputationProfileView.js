@@ -19,7 +19,7 @@ const ReputationProfileView = (props) => {
             {reputations.map((reputation) => {
               if (reputation.bfaRep === true && reputation.standingName !== 'Hated') {
                 return (
-                  <div className="row no-gutters">
+                  <div className="row no-gutters" key={reputation.id}>
                     <div className="bar-name col-3"><span>{reputation.name}</span></div>
                     <div className="col-md-6 col-sm-7 col-7">
                       <div className="bar">
@@ -45,7 +45,7 @@ const ReputationProfileView = (props) => {
             {reputations.map((reputation) => {
               if (("bfaRep" in reputation) === false && reputation.standingName !== 'Hated') {
                 return (
-                  <div className="row no-gutters">
+                  <div className="row no-gutters" key={reputation.id}>
                     <div className="bar-name col-3"><span>{reputation.name}</span></div>
                     <div className="col-md-6 col-sm-7 col-7">
                       <div className="bar">

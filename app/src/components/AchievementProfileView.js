@@ -54,7 +54,7 @@ const AchievementProfileView = (props) => {
             {achievementCounts.map((category) => {
               if (!headersToIgnore.includes(category.headerName)) {
                 return (
-                  <div className="col-md-4 col-sm-6 col-12">
+                  <div className="col-md-4 col-sm-6 col-12" key={category.headerName}>
                     <h5>{category.headerName}</h5>
                     <div className="bar">
                       <div className="strip full" style={{width: `${category.progressWidth}`}}/>
@@ -79,7 +79,7 @@ const AchievementProfileView = (props) => {
 
                 {legacy.achievementDetails.map((ach) => {
                   return (
-                    <div className="topic">
+                    <div className="topic" key={ach.id}>
                       <h4>{ach.title}</h4>
                       <p>{ach.description}</p>
                     </div>
@@ -93,7 +93,7 @@ const AchievementProfileView = (props) => {
                 <h1>FEATS OF STRENGTH</h1>
                 {featsOfStrength.achievementDetails.map((ach) => {
                   return (
-                    <div className="topic">
+                    <div className="topic" key={ach.id}>
                       <h4>{ach.title}</h4>
                       <p>{ach.description}</p>
                     </div>
