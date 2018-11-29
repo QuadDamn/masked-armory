@@ -7,7 +7,7 @@ const TitleProfileView = (props) => {
     <Fragment>
       <div id="main-content">
         <div className="content cont-titles" id="content">
-          <div className="background dark" style={{backgroundImage: `url(${profilePicture})`}} />
+          <div className="background dark" style={{backgroundImage: `url(${profilePicture})`}}/>
           <div className="content-header">
             <div className="level-name">Level {profileData.level} {profileData.raceName} {profileData.className}</div>
             <div className="nav-name"><img src="/images/titles.svg" alt=""/>TITLES</div>

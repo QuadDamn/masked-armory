@@ -8,7 +8,7 @@ const ShareProfileView = (props) => {
     <Fragment>
       <div id="main-content">
         <div className="content cont-share" id="content">
-          <div className="background dark" style={{backgroundImage: `url(${profilePicture})`}} />
+          <div className="background dark" style={{backgroundImage: `url(${profilePicture})`}}/>
           <div className="content-header">
             <div className="level-name">Level {profileData.level} {profileData.raceName} {profileData.className}</div>
             <div className="nav-name"><img src="/images/share.svg" alt=""/>SHARE</div>
@@ -20,11 +20,13 @@ const ShareProfileView = (props) => {
               <p>{`[url=https://www.maskedarmory.com/armory/wow/profile/${profileId}] Anonymous Level
               ${profileData.level} ${profileData.raceName} ${profileData.className} WoW Profile | Masked Armory[/url]`}</p>
               <Clipboard data-clipboard-text={`[url=https://www.maskedarmory.com/armory/wow/profile/${profileId}] Anonymous Level
-              ${profileData.level} ${profileData.raceName} ${profileData.className} WoW Profile | Masked Armory[/url]`}>Copy Markup</Clipboard>
+              ${profileData.level} ${profileData.raceName} ${profileData.className} WoW Profile | Masked Armory[/url]`}>Copy
+                Markup</Clipboard>
             </div>
             <div className="link"><span>Direct URL</span>
               <p>{`https://www.maskedarmory.com/armory/wow/profile/${profileId}`}</p>
-              <Clipboard data-clipboard-text={`https://www.maskedarmory.com/armory/wow/profile/${profileId}`}>Copy Link</Clipboard>
+              <Clipboard data-clipboard-text={`https://www.maskedarmory.com/armory/wow/profile/${profileId}`}>Copy
+                Link</Clipboard>
             </div>
           </div>
         </div>

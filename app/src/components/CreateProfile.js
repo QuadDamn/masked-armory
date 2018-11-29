@@ -4,7 +4,7 @@ import Awesomplete from 'awesomplete';
 import {createProfile, getUsServerList, getEuServerList} from "../utils/api";
 import $ from 'jquery';
 import {Loader} from 'react-overlay-loader';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class CreateProfile extends Component {

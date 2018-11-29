@@ -8,6 +8,7 @@
     "jquery": "^3.3.1",
     "react": "^16.6.3",
     "react-clipboard.js": "^2.0.2",
+    "react-document-title": "^2.0.3",
     "react-dom": "^16.6.3",
     "react-overlay-loader": "0.0.3",
     "react-router-dom": "^4.3.1",
