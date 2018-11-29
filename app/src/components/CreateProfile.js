@@ -60,14 +60,10 @@ class CreateProfile extends Component {
      *
      * @param event
      */
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
 
         const {region, serverName, characterName} = this.state;
-
-        // console.log(this.state.region);
-        // console.log(this.state.serverName);
-        // console.log(this.state.characterName);
 
         if (!serverName) {
             this.setState({
@@ -92,19 +88,25 @@ class CreateProfile extends Component {
 
             let postData = {region, characterName, serverName};
 
-            createProfile(postData).then((data) => {
-                if (!data) {
-                  this.setState({
-                     submissionError: 'profileCreateFailed'
-                  });
-                } else {
-                    this.setState({
-                        submissionError: ''
-                    });
+            const profileId = await createProfile(postData);
+            this.props.history.push(`/armory/wow/profile/${profileId}`);
 
-                    this.props.history.push()
-                }
-            });
+
+            //     if (!data) {
+            //
+            //         console.log(data);
+            //
+            //       this.setState({
+            //          submissionError: 'profileCreateFailed'
+            //       });
+            //     } else {
+            //         this.setState({
+            //             submissionError: ''
+            //         });
+            //
+            //
+            //     }
+            // });
         }
     };
 

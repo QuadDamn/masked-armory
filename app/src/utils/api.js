@@ -8,16 +8,24 @@ export async function getProfile(profileId) {
 }
 
 export async function createProfile(data) {
-    axios.post(`${apiUrl}/profile`, data).then((response) => {
-        let data = response.data;
-        return data.profileId;
-    }).catch((err) => {
-        console.log(err);
-        return null;
-        // this.armoryError = 'armoryCreateFailed';
-        // createProfileButton.prop("disabled", false);
-        // createProfileButton.text("Create Armory Profile");
-    });
+
+
+
+    const response = await axios.post(`${apiUrl}/profile`, data);
+    return response.data.data.profileId;
+
+    //     let data = response.data;
+    //
+    //     console.log(data);
+    //
+    //     return data.profileId;
+    // }).catch((err) => {
+    //     console.log(err);
+    //     return null;
+    //     // this.armoryError = 'armoryCreateFailed';
+    //     // createProfileButton.prop("disabled", false);
+    //     // createProfileButton.text("Create Armory Profile");
+    // });
 }
 
 export async function getUsServerList() {

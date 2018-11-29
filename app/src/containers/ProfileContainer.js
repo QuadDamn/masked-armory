@@ -119,7 +119,7 @@ class ProfileContainer extends Component {
       <Fragment>
         <div className="page">
           <nav className="side-nav d-none d-lg-block">
-            <div className="nav-logo"><img src="/images/logo.png" alt=""/></div>
+              <div className="nav-logo"><a href="/"><img src="/images/logo.png" alt=""/></a></div>
             <div className="navigation">
               <ul>
                 <li className="head">ARMORY NAVIGATION</li>
