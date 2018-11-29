@@ -11,14 +11,14 @@ class MountProfileView extends Component {
     }
 
     render() {
-        const {profileData} = this.props;
+        const {profileData, profilePicture} = this.props;
         const mounts = profileData.mounts;
 
         return (
             <Fragment>
                 <div id="main-content">
                     <div className="content cont-mounts" id="content">
-                        <div className="background dark" />
+                        <div className="background dark" style={{backgroundImage: `url(${profilePicture})`}} />
                         <div className="content-header">
                             <div className="level-name">Level {profileData.level} {profileData.raceName} {profileData.className}</div>
                             <div className="nav-name"><img src="/images/mounts.svg" alt=""/>MOUNTS</div>
