@@ -13,7 +13,7 @@ updateAchievements().then((res) => {
 });
 
 async function updateAchievements() {
-    const url = `mongodb:://${config.get('db_username')}:${config.get('db_password')}@${config.get('db_connection_string')}`;
+    const url = config.get('db_connection_string');
     const dbName = config.get('db_name');
     const achievementObjectId = config.get('achievements_object_id');
     const ACHIEVEMENTS_API_URL = 'https://us.api.battle.net/wow/data/character/achievements?locale=en_US&apikey=' + config.get('achievements_api_key');
