@@ -5,7 +5,7 @@ process.env["NODE_CONFIG_DIR"] = __dirname + "/../config/";
 const config = require('config');
 
 const WOW_API_KEY = config.get('wow_api_key');
-const url = config.get('db_connection_string');
+const url = `mongodb:://${config.get('db_username')}:${config.get('db_password')}@${config.get('db_connection_string')}`;
 const dbName = config.get('db_name');
 
 updateUsRealmList().then((res) => {
