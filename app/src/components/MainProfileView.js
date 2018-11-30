@@ -101,8 +101,8 @@ class MainProfileView extends Component {
     return (
       <Fragment>
         <div id="main-content">
-          <div className="content cont-main" id="content">
-            <div className="background" style={{backgroundImage: `url(${profilePicture})`, margin: "0 auto", maxWidth: "1500px"}}/>
+          <div className="content cont-main" id="content" style={{margin: "0 auto", maxWidth: "1500px"}}>
+            <div className="background" style={{backgroundImage: `url(${profilePicture})`}}/>
             <div className="content-header">
               <div
                 className="level-name">Level {profileData.level} {profileData.raceName} {profileData.className}</div>
