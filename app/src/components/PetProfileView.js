@@ -25,7 +25,7 @@ class PetProfileView extends Component {
             </div>
             <div className="row mounts">
               {pets.map((pet) => {
-                return <div className="mount col-md-3 col-sm-4 col-6">
+                return <div className="mount col-md-2 col-sm-4 col-6">
                   <div className={`mount-image mount-img-quality-${pet.qualityId}`}
                        style={{backgroundImage: `url(${this.getPetImage(pet.displayId)})`}}>
                     <a href={this.getPetLink(pet.spellId)}/>

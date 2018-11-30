@@ -25,7 +25,7 @@ class MountProfileView extends Component {
             </div>
             <div className="row mounts">
               {mounts.map((mount) => {
-                return <div className="mount col-md-3 col-sm-4 col-6" key={mount.mountId}>
+                return <div className="mount col-md-2 col-sm-4 col-6" key={mount.mountId}>
                   <div className={`mount-image mount-img-quality-${mount.qualityId}`}
                        style={{backgroundImage: `url(${this.getMountImage(mount.displayId)})`}}>
                     <a href={this.getMountLink(mount.spellId)}/>
