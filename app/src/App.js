@@ -10,7 +10,7 @@ const App = () => {
       <Fragment>
         <Switch>
           <Route path="/" exact component={CreateProfile}/>
-          <Route path="/armory/wow/profile/:id" component={ProfileContainer}/>
+          <Route path="/armory/wow/profile/:id?" component={ProfileContainer}/>
           <Route component={PageNotFound}/>
         </Switch>
       </Fragment>
