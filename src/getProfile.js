@@ -25,11 +25,12 @@ async function getProfile(req, res) {
     data.pets = await getPets(req.db, data.pets.collected);
     data.titles = await sortAndCleanTitles(data.titles);
     data.reputation = await getReputations(data.reputation);
-    data.featsLegacy = await getFeatsAndLegacy(data.achievementCounts);
 
     data.achievementCounts = (data.achievementCounts['Total']) ? await getOldAchievementProgressWidth(data.achievementCounts) : await getAchievementProgressWidth(data.achievementCounts);
     data.obtainedAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].count : await getAchievementsObtainedTotal(data.achievementCounts);
     data.totalAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].total : 2757; // Magic number as there is no way to compute this from the API at this time.
+
+    data.featsLegacy = await getFeatsAndLegacy(data.achievementCounts);
 
     let totalAchievementsProgressWidth = Math.round((data.obtainedAchievements / data.totalAchievements) * 100);
     data.totalAchievementsProgressWidth = totalAchievementsProgressWidth.toString() + '%';
