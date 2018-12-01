@@ -8,7 +8,7 @@ const AchievementProfileView = (props) => {
   const totalAchievementsProgressWidth = profileData.totalAchievementsProgressWidth;
   const featsOfStrength = profileData.featsLegacy.feats;
   const legacy = profileData.featsLegacy.legacy;
-  const headersToIgnore = ['Legacy', 'Feats of Strength'];
+  const headersToIgnore = ['Legacy', 'Feats of Strength', 'Total'];
 
   return (
     <Fragment>

@@ -26,9 +26,15 @@ async function getProfile(req, res) {
     data.titles = await sortAndCleanTitles(data.titles);
     data.reputation = await getReputations(data.reputation);
     data.featsLegacy = await getFeatsAndLegacy(data.achievementCounts);
-    data.achievementCounts = await getAchievementProgressWidth(data.achievementCounts);
-    data.obtainedAchievements = await getAchievementsObtainedTotal(data.achievementCounts);
-    data.totalAchievements = 2757; // Magic number as there is no way to compute this from the API at this time.
+
+    // console.log(data.achievementCounts);
+
+    data.achievementCounts = (data.achievementCounts['Total']) ? await getOldAchievementProgressWidth(data.achievementCounts) : await getAchievementProgressWidth(data.achievementCounts);
+
+    console.log(data.achievementCounts[0][0]);
+
+    data.obtainedAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].count : await getAchievementsObtainedTotal(data.achievementCounts);
+    data.totalAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].total : 2757; // Magic number as there is no way to compute this from the API at this time.
 
     let totalAchievementsProgressWidth = Math.round((data.obtainedAchievements / data.totalAchievements) * 100);
     data.totalAchievementsProgressWidth = totalAchievementsProgressWidth.toString() + '%';
@@ -69,6 +75,32 @@ async function getAchievementsObtainedTotal(achievements) {
   }
 
   return achievementsObtainedTotal;
+}
+
+function getOldAchievementProgressWidth(achievements) {
+  const achHeaders = Object.keys(achievements);
+  const headersToIgnore = ['Legacy', 'Feats of Strength', 'Total'];
+
+  return achHeaders.map((header) => {
+    if (!headersToIgnore.includes(header)) {
+
+      let achievementBarWidth = Math.round((achievements[header].count / achievements[header].total) * 100);
+
+      return {
+          "headerName": header,
+          "achievementCount": achievements[header].count,
+          "achievementTotalCount": achievements[header].total,
+          "achievementDetails": [],
+          "progressWidth": achievementBarWidth.toString() + '%'
+        };
+    } else {
+      return {
+        "headerName": header,
+        "achievementCount": achievements[header].count,
+        "achievementDetails": achievements[header].achievements,
+      };
+    }
+  });
 }
 
 function getAchievementProgressWidth(achievements) {
