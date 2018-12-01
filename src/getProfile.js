@@ -27,8 +27,8 @@ async function getProfile(req, res) {
     data.reputation = await getReputations(data.reputation);
 
     data.achievementCounts = (data.achievementCounts['Total']) ? await getOldAchievementProgressWidth(data.achievementCounts) : await getAchievementProgressWidth(data.achievementCounts);
-    data.obtainedAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].count : await getAchievementsObtainedTotal(data.achievementCounts);
-    data.totalAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].total : 2757; // Magic number as there is no way to compute this from the API at this time.
+    data.obtainedAchievements = (data.achievementCounts[0].headerName === 'Total') ? data.achievementCounts[0].achievementCount : await getAchievementsObtainedTotal(data.achievementCounts);
+    data.totalAchievements = (data.achievementCounts[0].headerName === 'Total') ? data.achievementCounts[0].achievementTotalCount : 2757; // Magic number as there is no way to compute this from the API at this time.
 
     data.featsLegacy = await getFeatsAndLegacy(data.achievementCounts);
 
@@ -89,6 +89,12 @@ function getOldAchievementProgressWidth(achievements) {
           "achievementDetails": [],
           "progressWidth": achievementBarWidth.toString() + '%'
         };
+    } else if (header === 'Total') {
+      return {
+        "headerName": header,
+        "achievementCount": achievements[header].count,
+        "achievementTotalCount": achievements[header].total
+      };
     } else {
       return {
         "headerName": header,
