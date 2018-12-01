@@ -17,6 +17,8 @@ async function getProfile(req, res) {
 
     let data = document.data;
 
+    data.name = '';
+    data.realm = '';
     data.raceName = getRaceName(data['race']);
     data.className = getClassName(data['class']);
     data.mounts = await getMounts(req.db, data.mounts.collected);
