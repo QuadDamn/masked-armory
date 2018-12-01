@@ -46,7 +46,7 @@ async function getProfile(req, res) {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).send({status: 'error', message: err});
+    return res.status(500).send({status: 'error', message: JSON.encode(err)});
   }
 }
 
