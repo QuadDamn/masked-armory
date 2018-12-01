@@ -27,12 +27,7 @@ async function getProfile(req, res) {
     data.reputation = await getReputations(data.reputation);
     data.featsLegacy = await getFeatsAndLegacy(data.achievementCounts);
 
-    // console.log(data.achievementCounts);
-
     data.achievementCounts = (data.achievementCounts['Total']) ? await getOldAchievementProgressWidth(data.achievementCounts) : await getAchievementProgressWidth(data.achievementCounts);
-
-    console.log(data.achievementCounts[0][0]);
-
     data.obtainedAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].count : await getAchievementsObtainedTotal(data.achievementCounts);
     data.totalAchievements = (data.achievementCounts[0][0] === 'Total') ? data.achievementCounts[0][0].total : 2757; // Magic number as there is no way to compute this from the API at this time.
 
@@ -46,7 +41,7 @@ async function getProfile(req, res) {
     }
   } catch (err) {
     console.log(err);
-    return res.status(500).send({status: 'error', message: JSON.encode(err)});
+    return res.status(500).send({status: 'error', message: err});
   }
 }
 
