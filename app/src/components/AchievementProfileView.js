@@ -39,13 +39,13 @@ const AchievementProfileView = (props) => {
               <div className="legacy">
                 <div className="legacy-img"><img src="/images/legacy.svg" alt=""/></div>
                 <h3>LEGACY</h3>
-                <span>{legacy.achievementCount}</span></div>
+                <span>{(legacy.achievementCount) ? legacy.achievementCount : 0}</span></div>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-4 col-6">
               <div className="legacy">
                 <div className="legacy-img"><img src="/images/Feats_of_Strength.svg" alt=""/></div>
                 <h3>FEATS OF STRENGTH</h3>
-                <span>{featsOfStrength.achievementCount}</span></div>
+                <span>{(featsOfStrength.achievementCount) ? legacy.achievementCount : 0}</span></div>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-2 col-0"/>
           </div>
@@ -77,28 +77,28 @@ const AchievementProfileView = (props) => {
               <div className="legacy-rect">
                 <h1>LEGACY</h1>
 
-                {legacy.achievementDetails.map((ach) => {
+                {(legacy.achievementCount) ? legacy.achievementDetails.map((ach) => {
                   return (
                     <div className="topic" key={ach.id}>
                       <h4>{ach.title}</h4>
                       <p>{ach.description}</p>
                     </div>
                   )
-                })}
+                }) : <div/>}
 
               </div>
             </div>
             <div className="col-md-6 col-12">
               <div className="legacy-rect">
                 <h1>FEATS OF STRENGTH</h1>
-                {featsOfStrength.achievementDetails.map((ach) => {
+                {(featsOfStrength.achievementCount) ? featsOfStrength.achievementDetails.map((ach) => {
                   return (
                     <div className="topic" key={ach.id}>
                       <h4>{ach.title}</h4>
                       <p>{ach.description}</p>
                     </div>
                   )
-                })}
+                }) : <div/>}
               </div>
             </div>
           </div>
