@@ -45,7 +45,7 @@ const AchievementProfileView = (props) => {
               <div className="legacy">
                 <div className="legacy-img"><img src="/images/Feats_of_Strength.svg" alt=""/></div>
                 <h3>FEATS OF STRENGTH</h3>
-                <span>{(featsOfStrength.achievementCount) ? legacy.achievementCount : 0}</span></div>
+                <span>{(featsOfStrength.achievementCount) ? featsOfStrength.achievementCount : 0}</span></div>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-2 col-0"/>
           </div>
