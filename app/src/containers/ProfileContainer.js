@@ -131,10 +131,10 @@ class ProfileContainer extends Component {
     return (
       <DocumentTitle
         title={`Level ${profileData.level} ${profileData.raceName} ${profileData.className} Anonymous World of Warcraft Armory Profile | Masked Armory`}>
-
-        <GaugesAnalyticsComponent id="5c01aac0701bf460c2e64553" />
-
         <Fragment>
+
+          <GaugesAnalyticsComponent id="5c01aac0701bf460c2e64553" />
+
           <div className="page">
             <nav className="side-nav d-none d-lg-block">
               <div className="nav-logo"><a href="/"><img src="/images/logo.png" alt=""/></a></div>
