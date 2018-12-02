@@ -10,6 +10,7 @@ import AchievementProfileView from '../components/AchievementProfileView';
 import ShareProfileView from '../components/ShareProfileView';
 import PageNotFound from '../components/PageNotFound';
 import DocumentTitle from "react-document-title";
+import GaugesAnalyticsComponent from "../components/GaugesAnalyticsComponent";
 
 class ProfileContainer extends Component {
 
@@ -130,6 +131,9 @@ class ProfileContainer extends Component {
     return (
       <DocumentTitle
         title={`Level ${profileData.level} ${profileData.raceName} ${profileData.className} Anonymous World of Warcraft Armory Profile | Masked Armory`}>
+
+        <GaugesAnalyticsComponent id="5c01aac0701bf460c2e64553" />
+
         <Fragment>
           <div className="page">
             <nav className="side-nav d-none d-lg-block">

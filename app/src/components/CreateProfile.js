@@ -6,6 +6,7 @@ import $ from 'jquery';
 import {Loader} from 'react-overlay-loader';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GaugesAnalyticsComponent from './GaugesAnalyticsComponent';
 
 class CreateProfile extends Component {
   state = {
@@ -173,6 +174,8 @@ class CreateProfile extends Component {
   render() {
     return (
       <Fragment>
+        <GaugesAnalyticsComponent id="5c01aac0701bf460c2e64553" />
+
         <div className="container-fluid home">
           <div className="container">
             <div className="logo"><img src="images/logo.png" alt=""/></div>
