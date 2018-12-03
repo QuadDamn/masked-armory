@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import Clipboard from 'react-clipboard.js';
+import Clipboard from '../node_modules/react-clipboard.js/dist/react-clipboard';
 
 const ShareProfileView = (props) => {
   const {profileData, profileId, profilePicture} = props;

@@ -1,16 +1,16 @@
 import React, {Component, Fragment} from 'react';
 import {Loader} from 'react-overlay-loader';
-import {getProfile} from "../utils/api";
-import MainProfileView from '../components/MainProfileView';
-import TitleProfileView from '../components/TitleProfileView';
-import MountProfileView from '../components/MountProfileView';
-import PetProfileView from '../components/PetProfileView';
-import ReputationProfileView from '../components/ReputationProfileView';
-import AchievementProfileView from '../components/AchievementProfileView';
-import ShareProfileView from '../components/ShareProfileView';
-import PageNotFound from '../components/PageNotFound';
+import {getProfile} from "../src/utils/api";
+import MainProfileView from './MainProfileView';
+import TitleProfileView from './TitleProfileView';
+import MountProfileView from './MountProfileView';
+import PetProfileView from './PetProfileView';
+import ReputationProfileView from './ReputationProfileView';
+import AchievementProfileView from './AchievementProfileView';
+import ShareProfileView from './ShareProfileView';
+import PageNotFound from './PageNotFound';
 import DocumentTitle from "react-document-title";
-import GaugesAnalyticsComponent from "../components/GaugesAnalyticsComponent";
+import GaugesAnalyticsComponent from "./GaugesAnalyticsComponent";
 
 class ProfileContainer extends Component {
 

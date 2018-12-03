@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import Awesomplete from 'awesomplete';
-import {createProfile, getUsServerList, getEuServerList} from "../utils/api";
+import {createProfile, getUsServerList, getEuServerList} from "../src/utils/api";
 import $ from 'jquery';
 import {Loader} from 'react-overlay-loader';
 import {ToastContainer, toast} from 'react-toastify';

@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import PageNotFound from './components/PageNotFound';
-import CreateProfile from './components/CreateProfile';
-import ProfileContainer from './containers/ProfileContainer';
+import PageNotFound from '../pages/PageNotFound';
+import CreateProfile from '../pages/CreateProfile';
+import ProfileContainer from '../pages/ProfileContainer';
 
 const App = () => {
   return (
