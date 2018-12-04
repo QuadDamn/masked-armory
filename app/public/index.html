@@ -19,7 +19,16 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
-    <script src="/wowhead.js"></script>
+    <script>
+        $(document).ready(function(){
+            // update tooltips
+            if(typeof $WowheadPower == 'undefined'){
+                $.getScript('/wowhead.js');
+            } else {
+                $WowheadPower.refreshLinks();
+            }
+        });
+        </script>
 
     <!--awesomplete-->
     <link rel="stylesheet" href="/css/awesomplete.css"/>
