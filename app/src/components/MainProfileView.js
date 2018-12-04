@@ -49,7 +49,7 @@ class MainProfileView extends Component {
       gems = '&gems=' + gemsArray.join(':');
     }
 
-    return `https://www.wowhead.com/item=${item.id}${bonusLists}${azeritePowers}${ilvl}${enchant}${gems}`;
+    return `item=${item.id}${bonusLists}${azeritePowers}${ilvl}${enchant}${gems}`;
   }
 
   /**
@@ -121,7 +121,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['head']) ? profileData.items['head'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['head']) ? this.getItemLink(profileData.items['head']) : ""}>
+                    <a data-wowhead={(profileData.items['head']) ? this.getItemLink(profileData.items['head']) : ""}>
                     <div
                       className={(profileData.items['head']) ? 'item-img img-quality-' + profileData.items['head'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['head']) ? this.getItemImage(profileData.items['head']) : '/images/emptyslots/head.gif'})`}}/>
@@ -137,7 +137,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['neck']) ? profileData.items['neck'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['neck']) ? this.getItemLink(profileData.items['neck']) : ""}>
+                    <a data-wowhead={(profileData.items['neck']) ? this.getItemLink(profileData.items['neck']) : ""}>
                     <div
                       className={(profileData.items['neck']) ? 'item-img img-quality-' + profileData.items['neck'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['neck']) ? this.getItemImage(profileData.items['neck']) : '/images/emptyslots/neck.gif'})`}}/>
@@ -153,7 +153,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['shoulder']) ? profileData.items['shoulder'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['shoulder']) ? this.getItemLink(profileData.items['shoulder']) : ""}>
+                  <a data-wowhead={(profileData.items['shoulder']) ? this.getItemLink(profileData.items['shoulder']) : ""}>
                     <div
                       className={(profileData.items['shoulder']) ? 'item-img img-quality-' + profileData.items['shoulder'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['shoulder']) ? this.getItemImage(profileData.items['shoulder']) : '/images/emptyslots/shoulder.gif'})`}}/>
@@ -169,8 +169,8 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['back']) ? profileData.items['back'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['back']) ? this.getItemLink(profileData.items['back']) : ""}>
-                    <div
+                    <a data-wowhead={(profileData.items['back']) ? this.getItemLink(profileData.items['back']) : ""}>
+                        <div
                       className={(profileData.items['back']) ? 'item-img img-quality-' + profileData.items['back'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['back']) ? this.getItemImage(profileData.items['back']) : '/images/emptyslots/back.gif'})`}}/>
                   </a></div>
@@ -185,7 +185,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['chest']) ? profileData.items['chest'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['chest']) ? this.getItemLink(profileData.items['chest']) : ""}>
+                    <a data-wowhead={(profileData.items['chest']) ? this.getItemLink(profileData.items['chest']) : ""}>
                     <div
                       className={(profileData.items['chest']) ? 'item-img img-quality-' + profileData.items['chest'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['chest']) ? this.getItemImage(profileData.items['chest']) : '/images/emptyslots/chest.gif'})`}}/>
@@ -201,7 +201,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['shirt']) ? profileData.items['shirt'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['shirt']) ? this.getItemLink(profileData.items['shirt']) : ""}>
+                    <a data-wowhead={(profileData.items['shirt']) ? this.getItemLink(profileData.items['shirt']) : ""}>
                     <div
                       className={(profileData.items['shirt']) ? 'item-img img-quality-' + profileData.items['shirt'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['shirt']) ? this.getItemImage(profileData.items['shirt']) : '/images/emptyslots/shirt.gif'})`}}/>
@@ -217,7 +217,7 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['tabard']) ? profileData.items['tabard'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['tabard']) ? this.getItemLink(profileData.items['tabard']) : ""}>
+                    <a data-wowhead={(profileData.items['tabard']) ? this.getItemLink(profileData.items['tabard']) : ""}>
                     <div
                       className={(profileData.items['tabard']) ? 'item-img img-quality-' + profileData.items['tabard'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['tabard']) ? this.getItemImage(profileData.items['tabard']) : '/images/emptyslots/tabard.gif'})`}}/>
@@ -233,15 +233,14 @@ class MainProfileView extends Component {
                       <span>{(profileData.items['wrist']) ? profileData.items['wrist'].itemLevel : ''}</span>
                     </div>
                   </div>
-                  <a href={(profileData.items['wrist']) ? this.getItemLink(profileData.items['wrist']) : ""}>
+                    <a data-wowhead={(profileData.items['wrist']) ? this.getItemLink(profileData.items['wrist']) : ""}>
                     <div
                       className={(profileData.items['wrist']) ? 'item-img img-quality-' + profileData.items['wrist'].quality : 'item-img'}
                       style={{backgroundImage: `url(${(profileData.items['wrist']) ? this.getItemImage(profileData.items['wrist']) : '/images/emptyslots/wrist.gif'})`}}/>
                   </a></div>
               </div>
               <div className="right-items-group">
-                <div className="item"><a
-                  href={(profileData.items['hands']) ? this.getItemLink(profileData.items['hands']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['hands']) ? this.getItemLink(profileData.items['hands']) : ""}>
                   <div
                     className={(profileData.items['hands']) ? 'item-img img-quality-' + profileData.items['hands'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['hands']) ? this.getItemImage(profileData.items['hands']) : '/images/emptyslots/hands.gif'})`}}/>
@@ -257,8 +256,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['waist']) ? this.getItemLink(profileData.items['waist']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['waist']) ? this.getItemLink(profileData.items['waist']) : ""}>
                   <div
                     className={(profileData.items['waist']) ? 'item-img img-quality-' + profileData.items['waist'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['waist']) ? this.getItemImage(profileData.items['waist']) : '/images/emptyslots/waist.gif'})`}}/>
@@ -274,8 +272,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['legs']) ? this.getItemLink(profileData.items['legs']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['legs']) ? this.getItemLink(profileData.items['legs']) : ""}>
                   <div
                     className={(profileData.items['legs']) ? 'item-img img-quality-' + profileData.items['legs'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['legs']) ? this.getItemImage(profileData.items['legs']) : '/images/emptyslots/legs.gif'})`}}/>
@@ -291,8 +288,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['feet']) ? this.getItemLink(profileData.items['feet']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['feet']) ? this.getItemLink(profileData.items['feet']) : ""}>
                   <div
                     className={(profileData.items['feet']) ? 'item-img img-quality-' + profileData.items['feet'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['feet']) ? this.getItemImage(profileData.items['feet']) : '/images/emptyslots/feet.gif'})`}}/>
@@ -308,8 +304,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['finger1']) ? this.getItemLink(profileData.items['finger1']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['finger1']) ? this.getItemLink(profileData.items['finger1']) : ""}>
                   <div
                     className={(profileData.items['finger1']) ? 'item-img img-quality-' + profileData.items['finger1'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['finger1']) ? this.getItemImage(profileData.items['finger1']) : '/images/emptyslots/ring.gif'})`}}/>
@@ -325,8 +320,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['finger2']) ? this.getItemLink(profileData.items['finger2']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['finger2']) ? this.getItemLink(profileData.items['finger2']) : ""}>
                   <div
                     className={(profileData.items['finger2']) ? 'item-img img-quality-' + profileData.items['finger2'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['finger2']) ? this.getItemImage(profileData.items['finger2']) : '/images/emptyslots/ring.gif'})`}}/>
@@ -342,8 +336,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['trinket1']) ? this.getItemLink(profileData.items['trinket1']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['trinket1']) ? this.getItemLink(profileData.items['trinket1']) : ""}>
                   <div
                     className={(profileData.items['trinket1']) ? 'item-img img-quality-' + profileData.items['trinket1'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['trinket1']) ? this.getItemImage(profileData.items['trinket1']) : '/images/emptyslots/trinket.gif'})`}}/>
@@ -359,8 +352,7 @@ class MainProfileView extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="item"><a
-                  href={(profileData.items['trinket2']) ? this.getItemLink(profileData.items['trinket2']) : ""}>
+                <div className="item"><a data-wowhead={(profileData.items['trinket2']) ? this.getItemLink(profileData.items['trinket2']) : ""}>
                   <div
                     className={(profileData.items['trinket2']) ? 'item-img img-quality-' + profileData.items['trinket2'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['trinket2']) ? this.getItemImage(profileData.items['trinket2']) : '/images/emptyslots/trinket.gif'})`}}/>
@@ -390,13 +382,12 @@ class MainProfileView extends Component {
                     <span>{(profileData.items['mainHand']) ? profileData.items['mainHand'].itemLevel : ''}</span>
                   </div>
                 </div>
-                <a href={(profileData.items['mainHand']) ? this.getItemLink(profileData.items['mainHand']) : ""}>
+                  <a data-wowhead={(profileData.items['mainHand']) ? this.getItemLink(profileData.items['mainHand']) : ""}>
                   <div
                     className={(profileData.items['mainHand']) ? 'item-img img-quality-' + profileData.items['mainHand'].quality : 'item-img'}
                     style={{backgroundImage: `url(${(profileData.items['mainHand']) ? this.getItemImage(profileData.items['mainHand']) : '/images/emptyslots/mainhand.gif'})`}}/>
                 </a></div>
-              <div className="item right-item"><a
-                href={(profileData.items['offHand']) ? this.getItemLink(profileData.items['offHand']) : ""}>
+              <div className="item right-item"><a data-wowhead={(profileData.items['offHand']) ? this.getItemLink(profileData.items['offHand']) : ""}>
                 <div
                   className={(profileData.items['offHand']) ? 'item-img img-quality-' + profileData.items['offHand'].quality : 'item-img'}
                   style={{backgroundImage: `url(${(profileData.items['offHand']) ? this.getItemImage(profileData.items['offHand']) : '/images/emptyslots/secondhand.gif'})`}}/>
