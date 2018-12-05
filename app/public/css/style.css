@@ -3051,3 +3051,7 @@ input {
 .react-overlay-loader-spinner:before {
     border-top-color: #fc0f00 !important;
 }
+
+.wowhead-tooltip-screen-caption a:first-child:last-child {
+    color: white;
+}
