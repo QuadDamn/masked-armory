@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from 'react';
-import DocumentTitle from "react-document-title";
 
 class MainProfileView extends Component {
 

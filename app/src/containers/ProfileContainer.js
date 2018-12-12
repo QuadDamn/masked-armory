@@ -128,6 +128,8 @@ class ProfileContainer extends Component {
       return <PageNotFound/>;
     }
 
+    console.log(profileData.items);
+
     return (
       <DocumentTitle
         title={`ilvl ${profileData.items.averageItemLevel} | Level ${profileData.level} ${profileData.raceName} ${profileData.className} Anonymous World of Warcraft Armory Profile | Masked Armory`}>
