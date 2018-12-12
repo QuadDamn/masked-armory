@@ -1,4 +1,4 @@
-const { ObjectId } = require('mongodb');
+const {ObjectId} = require('mongodb');
 const WowArmory = require('wow-armory.js');
 
 process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
@@ -8,15 +8,15 @@ let config = require('config');
 // so we have to get these counts of the game directly.
 const totalAchievementCounts = {
     'Character': 34,
-    'Quests': 321,
-    'Exploration': 249,
-    'Player vs. Player': 259,
-    'Dungeons & Raids': 1033,
+    'Quests': 333,
+    'Exploration': 248,
+    'Player vs. Player': 264,
+    'Dungeons & Raids': 1059,
     'Professions': 267,
     'Reputation': 114,
     'World Events': 233,
-    'Pet Battles': 148,
-    'Collections': 99
+    'Pet Battles': 160,
+    'Collections': 101
 };
 
 /**
@@ -119,14 +119,14 @@ async function createProfile(req, res) {
         try {
             await req.db.collection('armories').insertOne(armoryDataFormatted);
             let objectId = armoryDataFormatted._id;
-            return res.status(200).send({ status: 'success', data: { profileId: objectId }});
+            return res.status(200).send({status: 'success', data: {profileId: objectId}});
         } catch (err) {
             console.log(err);
-            return res.status(500).send({ status: 'error', message: err });
+            return res.status(500).send({status: 'error', message: err});
         }
     } catch (err) {
         console.log(err);
-        return res.status(500).send({ status: 'error', message: err });
+        return res.status(500).send({status: 'error', message: err});
     }
 }
 
