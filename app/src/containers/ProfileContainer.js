@@ -128,11 +128,11 @@ class ProfileContainer extends Component {
       return <PageNotFound/>;
     }
 
-    console.log(profileData.items);
+    // TODO: Need to put in loading logic for the profileData before we can put the ilvl into the title of the page.
 
     return (
       <DocumentTitle
-        title={`ilvl ${profileData.items.averageItemLevel} | Level ${profileData.level} ${profileData.raceName} ${profileData.className} Anonymous World of Warcraft Armory Profile | Masked Armory`}>
+        title={`Level ${profileData.level} ${profileData.raceName} ${profileData.className} Anonymous World of Warcraft Armory Profile | Masked Armory`}>
         <Fragment>
 
           <GaugesAnalyticsComponent id="5c01aac0701bf460c2e64553" />
